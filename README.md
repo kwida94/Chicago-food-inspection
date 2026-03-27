@@ -2,68 +2,67 @@
 
 ## Overview
 
-For this project, I analyzed restaurant health inspection data from Chicago's public open data portal to understand compliance trends and risk patterns. The dataset covers inspections from January 2024 through February 2026.
+I pulled restaurant health inspection data from Chicago's open data portal and used it as a practice project to get more comfortable with Excel and Power Query. The data covers inspections from January 2024 through February 2026.
 
-My main goal was to take a large, messy dataset and turn it into something I could actually learn from — cleaning it up, organizing it, and then using Excel and Power Query to find patterns in the results.
+I wanted to see if I could find any patterns in who passes, who fails, and why.
 
-**Dataset summary:**
-- Total inspections analyzed: 39,365
-- Duplicate inspections found: 0
+- Total inspections: 39,365
+- Duplicates: 0
 - Time period: January 2024 – February 2026
 
 ---
 
-## Questions I Wanted to Answer
+## Questions I Tried to Answer
 
-- How often do inspections pass, fail, or pass with conditions?
-- Do higher-risk facilities fail more often than lower-risk ones?
-- Does the number of violations affect whether a facility passes or fails?
-- Which violations come up most frequently?
-- Have compliance rates changed over time?
+- How are inspections split between pass, fail, and pass with conditions?
+- Do higher-risk facilities fail more often?
+- Does having more violations make you more likely to fail?
+- Which violations show up the most?
+- Has anything changed over time?
 
 ---
 
-## Tools Used
+## Tools
 
-- **Excel** – data exploration and visualization
-- **Power Query** – data cleaning and transformation
-- **Pivot Tables** – summarizing results by category
+- Excel
+- Power Query
+- Pivot Tables
 
 ---
 
 ## Data Cleaning
 
-Before doing any analysis, I used Power Query to clean and standardize the raw data. This included removing irrelevant columns, filtering to the right date range, standardizing the risk and result categories, and extracting violation counts from the violation text field.
+Before I could do any analysis I had to clean up the raw data pretty heavily. I used Power Query to remove columns I didn't need, filter to the right date range, and pull out violation counts from the violation description text.
 
 ![Power Query transformation steps](02_outputs/power-query.png)
 
 ---
 
-## Key Findings
+## What I Found
 
-### 1. Overall Inspection Results
+### Overall Results
 
-Across all 39,365 inspections, results were fairly evenly split between pass and fail — but nearly 60% of inspections either failed outright or required corrective action before passing.
+About 40% of inspections passed, 39% failed, and 21% passed with conditions. I thought pass rates would be higher than that — almost 60% of inspections ended in either a fail or some kind of required fix.
 
-- **Pass:** 40.11%
-- **Fail:** 38.88%
-- **Pass w/ Conditions:** 21.01%
+- Pass: 40.11%
+- Fail: 38.88%
+- Pass w/ Conditions: 21.01%
 
 ![Inspection Results Distribution](02_outputs/inspection-results-distribution.png)
 
 ---
 
-### 2. Violation Count Is a Strong Predictor of Failure
+### More Violations = More Likely to Fail
 
-One of the clearest patterns I found was the relationship between the number of violations cited and whether a facility passed or failed. Facilities with just 1–2 violations passed about 77% of the time. That number dropped sharply as violations increased — facilities with 6 or more violations failed about 50% of the time.
+This one made a lot of sense once I saw it. Facilities with only 1–2 violations passed around 77% of the time. Once you hit 6 or more violations, the failure rate jumped to about 50%. The more things wrong, the worse the outcome.
 
 ![How Inspection Results Change as Violations Increase](02_outputs/outcomes-by-violation-count.png)
 
 ---
 
-### 3. Lower-Risk Facilities Actually Fail More Often
+### Low-Risk Facilities Actually Failed More
 
-This was probably the most surprising finding. I expected high-risk facilities (Risk 1) to have the highest failure rates, but the data showed the opposite pattern:
+This surprised me. I assumed high-risk facilities (the ones handling raw meat, full cooking, etc.) would fail the most. But it was the opposite:
 
 | Risk Level | Failure Rate |
 |---|---|
@@ -71,23 +70,23 @@ This was probably the most surprising finding. I expected high-risk facilities (
 | Risk 2 (Medium) | 41.03% |
 | Risk 1 (High) | 38.14% |
 
-Risk 1 (High) facilities — places that handle raw meat, cooking, and complex food prep — actually had the lowest failure rate. Risk 3 (Low) facilities, which typically have simpler operations, failed more than half the time. This suggests that risk classification alone is not a reliable predictor of compliance, and that lower-risk facilities may not be receiving the same level of training or oversight.
+Low-risk facilities failed more than half the time. I'm not totally sure why — maybe they get less training, or they're not as focused on food safety since they're doing simpler things. Either way it's not what I expected.
 
 ![Failure Rate by Risk Level](02_outputs/failure-rate-by-risk-level.png)
 
 ---
 
-### 4. Compliance Rates Are Stable Over Time
+### Results Have Been Pretty Consistent Over Time
 
-Looking at inspection outcomes month by month, the overall distribution stayed fairly consistent from January 2024 through February 2026. There were some months with slightly higher failure rates, but nothing that pointed to a major system-wide shift.
+Looking month by month from 2024 through early 2026, the pass/fail split didn't change much. There were a few spikes here and there but nothing that looked like a big trend.
 
 ![Inspection Rate Over Time (2024–2026)](02_outputs/inspection-rate-over-time.png)
 
 ---
 
-### 5. Top 10 Most Frequent Violations
+### Most Common Violations
 
-The most commonly cited violations were violation codes 55, 47, and 49. These correspond to issues around food source documentation, pest prevention, and physical facility conditions. The chart below shows the 10 violation codes that appeared most often across all inspections.
+The top violation codes were 55, 47, and 49 — by a lot. Code 55 showed up roughly twice as often as anything else. These codes deal with things like food source documentation, pest prevention, and facility conditions.
 
 ![Top 10 Health Inspection Violations](02_outputs/top-10-violations.png)
 
@@ -95,35 +94,25 @@ The most commonly cited violations were violation codes 55, 47, and 49. These co
 
 ## Full Dashboard
 
-Here is the complete dashboard I built in Excel, combining all of the charts above into a single view.
+Here's the full Excel dashboard I put together with all the charts.
 
 ![Restaurant Inspection Compliance & Risk Analysis Dashboard](02_outputs/Health%20Inspection%20Dashboard.png)
 
 ---
 
-## What the Data Suggests
+## Takeaways
 
-- **Violation count is a reliable warning sign.** Facilities with 6 or more violations are much more likely to fail. Tracking this threshold could help city inspectors or restaurant operators identify who is at risk before the next inspection.
-- **Risk classification does not predict compliance.** The fact that low-risk facilities have the highest failure rates is worth investigating further. It may point to a gap in how those facilities are monitored or trained.
-- **Core operational issues drive most violations.** The most frequent violations consistently relate to food source documentation, pest prevention, and facility upkeep — not complex cooking or handling issues.
-- **Compliance has been stable, but failure rates remain high.** Over 38% of inspections resulting in failure is significant, and it suggests there is room for systemic improvement.
+The violation count finding was probably the most useful — it's a pretty clear signal. If a facility racks up 6+ violations in one inspection, there's a 50% chance it fails. That seems like something worth paying attention to.
 
----
+The risk level finding was more confusing. I went in thinking Risk 1 (High) facilities would have the worst numbers, but they actually did the best. I'd want to dig into that more before drawing any big conclusions.
 
-## Recommendations
-
-Based on this analysis, here are a few things that might help reduce failure rates:
-
-1. **Focus training on the most common violations.** Since violation codes 55, 47, and 49 appear far more than others, targeted training on those specific areas could have a big impact.
-2. **Use violation count as an early warning metric.** Facilities approaching 5–6 violations in a single inspection could be flagged for follow-up before their next scheduled visit.
-3. **Investigate why low-risk facilities fail at higher rates.** This is counterintuitive enough that it deserves a closer look — it may reveal gaps in oversight or training for certain facility types.
-4. **Track repeat offenders.** The current analysis looks at each inspection in isolation. A follow-up analysis of facilities with repeated failures would help identify where intervention is most needed.
+The most common violations being in pest prevention and food sourcing also stood out. Those aren't complicated things — they're more about consistency and habits than skill.
 
 ---
 
-## Next Steps
+## What I'd Do Next
 
-- Build an interactive dashboard in Tableau to make the results easier to explore
-- Use SQL to analyze re-inspection patterns and repeat offenders
-- Look into geographic trends — are certain neighborhoods or zip codes seeing higher failure rates?
-- Investigate the risk level finding in more detail, possibly by breaking it down by facility type
+- Learn Tableau and rebuild this as an interactive dashboard
+- Use SQL to look at repeat offenders — facilities that keep failing inspections
+- Map the results by neighborhood to see if location matters
+- Break down the risk level finding by facility type to understand it better
